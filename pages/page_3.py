@@ -12,7 +12,7 @@ conn = st.connection("my_database")
 def get_profile_dataset(number_of_items: int = 20, seed: int = 0):
     query_set = conn.query(
         f"""
-            SELECT c.first_name, c.last_name, COUNT(r.rental_id) as yearly_rentals from customer as c
+            SELECT c.first_name, c.last_name, COUNT(r.rental_id) as yearly_rentals FROM customer as c
             INNER JOIN rental as r on c.customer_id = r.customer_id
             WHERE YEAR(r.rental_date) = 2005
             GROUP BY c.customer_id
