@@ -76,7 +76,7 @@ def show_monthly_sales(data):
 
 
 st.set_page_config(layout="wide")
-st.title("Daily vs monthly sales, by product")
+st.title("Trigger a full-script rerun from inside a fragment")
 
 data = get_data()
 daily, monthly = st.columns(2)
