@@ -1,8 +1,4 @@
-import time
 import streamlit as st
-import pandas as pd
-import numpy as np
-import datetime
 import pymysql
 
 pymysql.install_as_MySQLdb()
@@ -58,7 +54,9 @@ admin_page5 = st.Page(
 admin_page6 = st.Page(
     "admin/admin_page6.py", title="Start and stop a streaming fragment"
 )
-
+admin_page7 = st.Page(
+    "admin/admin_page7.py", title="Streamlit 101: The fundamentals of a Python data app"
+)
 account_pages = [logout_page, settings]
 user_pages = [user_index, user_updte, user_chatbot, user_langchain]
 admin_pages = [
@@ -68,11 +66,12 @@ admin_pages = [
     admin_page4,
     admin_page5,
     admin_page6,
+    admin_page7,
 ]
 
 
 st.title("Request manager")
-
+st.divider()
 page_dict = {}
 if st.session_state.role in ["User", "Admin"]:
     page_dict["User"] = user_pages
