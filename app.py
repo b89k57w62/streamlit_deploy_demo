@@ -37,6 +37,9 @@ user_index = st.Page(
 )
 user_updte = st.Page("user/user_update.py", title="User Update", icon="👤")
 user_chatbot = st.Page("user/user_chatbot.py", title="User Chatbot", icon="🤨")
+user_langchain = st.Page(
+    "user/user_langchain.py", title="Build an LLM app using LangChain", icon="🤖"
+)
 
 admin_page = st.Page(
     "admin/admin_index.py",
@@ -49,11 +52,15 @@ admin_page3 = st.Page("admin/admin_page3.py", title="Tab demo")
 admin_page4 = st.Page(
     "admin/admin_page4.py", title="Trigger a full-script rerun from inside a fragment"
 )
-admin_page5 = st.Page("admin/admin_page5.py", title="tab demo3")
-admin_page6 = st.Page("admin/admin_page6.py", title="tab demo4")
+admin_page5 = st.Page(
+    "admin/admin_page5.py", title="Create a fragment across multiple containers"
+)
+admin_page6 = st.Page(
+    "admin/admin_page6.py", title="Start and stop a streaming fragment"
+)
 
 account_pages = [logout_page, settings]
-user_pages = [user_index, user_updte, user_chatbot]
+user_pages = [user_index, user_updte, user_chatbot, user_langchain]
 admin_pages = [
     admin_page,
     admin_page2,
