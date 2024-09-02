@@ -5,6 +5,7 @@ from vega_datasets import data
 
 
 st.sidebar.write("Page 2")
+st.header("tooltips demo")
 
 
 @st.cache_data
@@ -25,7 +26,7 @@ hover = alt.selection_single(
 
 lines = (
     alt.Chart(stock_data, title="stock pirces")
-    .mark_line()
+    .mark_line()  # creat a line with data points
     .encode(
         x="date",
         y="price",

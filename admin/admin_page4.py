@@ -2,8 +2,6 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 from datetime import date, timedelta
-import string
-import time
 
 
 @st.cache_data
@@ -75,7 +73,6 @@ def show_monthly_sales(data):
         st.bar_chart(monthly_sales.sum())
 
 
-st.set_page_config(layout="wide")
 st.title("Trigger a full-script rerun from inside a fragment")
 
 data = get_data()
