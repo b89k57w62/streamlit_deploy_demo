@@ -9,6 +9,7 @@ row2 = st.columns(3)
 grid = [col.container(height=200) for col in row1 + row2]
 safe_grid = [card.empty() for card in grid]
 
+
 def black_cats():
     st.title("🐈‍⬛ 🐈‍⬛")
     st.markdown("🐾 🐾 🐾 🐾")
@@ -18,10 +19,13 @@ def orange_cats():
     st.title("🐈 🐈")
     st.markdown("🐾 🐾 🐾 🐾")
 
+
 @st.fragment
 def herd_black_cats(card_a, card_b, card_c):
     time.sleep(1.5)
-    st.button("Herd the black cats") # only rerun within this function scope, due to decorator
+    st.button(
+        "Herd the black cats"
+    )  # only rerun within this function scope, due to decorator
     container_a = card_a.container()
     container_b = card_b.container()
     container_c = card_c.container()
@@ -31,6 +35,7 @@ def herd_black_cats(card_a, card_b, card_c):
         black_cats()
     with container_c:
         black_cats()
+
 
 @st.fragment
 def herd_orange_cats(card_a, card_b, card_c):
