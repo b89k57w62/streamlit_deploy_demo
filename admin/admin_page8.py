@@ -67,9 +67,7 @@ def make_donut(response, text, color):
         chart_color = ["#E74C3C", "#781F16"]
 
     source = pd.DataFrame({"Topic": ["", text], "% value": [100 - response, response]})
-    source_bg = pd.DataFrame(
-        {"Topic": ["", text], "% value": [100, 0]}
-    )
+    source_bg = pd.DataFrame({"Topic": ["", text], "% value": [100, 0]})
     plot = (
         alt.Chart(source)
         .mark_arc(innerRadius=45, outerRadius=25)
@@ -119,6 +117,7 @@ def calculate_population_diff(df, yr):
         axis=1,
     ).sort_values(by="population_diff", ascending=False)
 
+
 col = st.columns((1.5, 4.5, 2), gap="medium")
 
 with col[0]:
@@ -133,7 +132,7 @@ with col[0]:
         state_name = "-"
         state_population = "-"
         state_delta = ""
-    
+
     st.metric(label=state_name, value=state_population, delta=state_delta)
 
     if selected_yr > 2010:
@@ -144,16 +143,20 @@ with col[0]:
         state_name = "-"
         state_population = "-"
         state_delta = ""
-    
+
     st.metric(label=state_name, value=state_population, delta=state_delta)
 
     st.write("States Migration")
-    
+
     if selected_yr > 2000:
         df_gt_50000 = df_population_diff[df_population_diff.population_diff > 50000]
         df_lt_50000 = df_population_diff[df_population_diff.population_diff < -50000]
-        states_migration_gt = round(len(df_gt_50000) / df_population_diff.states.nunique() * 100)
-        states_migration_lt = round(len(df_lt_50000) / df_population_diff.states.nunique() * 100)
+        states_migration_gt = round(
+            len(df_gt_50000) / df_population_diff.states.nunique() * 100
+        )
+        states_migration_lt = round(
+            len(df_lt_50000) / df_population_diff.states.nunique() * 100
+        )
         dount_chart_gt = make_donut(states_migration_gt, "Inbound Migration", "green")
         dount_chart_lt = make_donut(states_migration_lt, "Outbound Migration", "red")
     else:
@@ -161,7 +164,7 @@ with col[0]:
         states_migration_lt = 0
         dount_chart_gt = make_donut(states_migration_gt, "Inbound Migration", "green")
         dount_chart_lt = make_donut(states_migration_lt, "Outbound Migration", "red")
-    
+
     migration_col = st.columns((0.2, 1, 0.2))
     with migration_col[1]:
         st.write("Inbound")
