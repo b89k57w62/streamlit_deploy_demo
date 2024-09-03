@@ -57,6 +57,7 @@ admin_page6 = st.Page(
 admin_page7 = st.Page(
     "admin/admin_page7.py", title="Streamlit 101: The fundamentals of a Python data app"
 )
+admin_page8 = st.Page("admin/admin_page8.py", title="Test")
 account_pages = [logout_page, settings]
 user_pages = [user_index, user_updte, user_chatbot, user_langchain]
 admin_pages = [
@@ -67,6 +68,7 @@ admin_pages = [
     admin_page5,
     admin_page6,
     admin_page7,
+    admin_page8,
 ]
 
 
