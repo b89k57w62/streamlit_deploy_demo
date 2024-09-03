@@ -60,6 +60,49 @@ def make_choropleth(df, id, col, color_theme):
     return choropleth
 
 
+def make_donut(response, text, color):
+    if color == "green":
+        chart_color = ["#27AE60", "#12783D"]
+    if color == "red":
+        chart_color = ["#E74C3C", "#781F16"]
+
+    source = pd.DataFrame({"Topic": ["", text], "% value": [100 - response, response]})
+    source_bg = pd.DataFrame(
+        {"Topic": ["", text], "% value": [100, 0]}
+    )
+    plot = (
+        alt.Chart(source)
+        .mark_arc(innerRadius=45, outerRadius=25)
+        .encode(
+            theta="% value",
+            color=alt.Color(
+                "Topic", scale=alt.Scale(domain=[text, ""], range=chart_color)
+            ),
+        )
+        .properties(width=130, height=130)
+    )
+    plot_text = plot.mark_text(
+        align="center",
+        color="#29b5e8",
+        font="Lato",
+        fontSize=18,
+        fontWeight=700,
+        fontStyle="italic",
+    ).encode(text=alt.value(f"{response} %"))
+    plot_bg = (
+        alt.Chart(source_bg)
+        .mark_arc(innerRadius=45, outerRadius=20)
+        .encode(
+            theta="% value",
+            color=alt.Color(
+                "Topic", scale=alt.Scale(domain=[text, ""], range=chart_color)
+            ),
+        )
+        .properties(width=130, height=130)
+    )
+    return plot_bg + plot + plot_text
+
+
 def calculate_population_diff(df, yr):
     selected_yr_data = df[df.year == yr].reset_index()
     previous_yr_data = df[df.year == yr - 1].reset_index()
@@ -76,4 +119,52 @@ def calculate_population_diff(df, yr):
         axis=1,
     ).sort_values(by="population_diff", ascending=False)
 
+col = st.columns((1.5, 4.5, 2), gap="medium")
 
+with col[0]:
+    st.write("Gains/losses")
+    df_population_diff = calculate_population_diff(df, selected_yr)
+
+    if selected_yr > 2010:
+        state_name = df_population_diff.states.iloc[0]
+        state_population = int(df_population_diff.population.iloc[0])
+        state_delta = int(df_population_diff.population_diff.iloc[0])
+    else:
+        state_name = "-"
+        state_population = "-"
+        state_delta = ""
+    
+    st.metric(label=state_name, value=state_population, delta=state_delta)
+
+    if selected_yr > 2010:
+        state_name = df_population_diff.states.iloc[-1]
+        state_population = int(df_population_diff.population.iloc[-1])
+        state_delta = int(df_population_diff.population_diff.iloc[-1])
+    else:
+        state_name = "-"
+        state_population = "-"
+        state_delta = ""
+    
+    st.metric(label=state_name, value=state_population, delta=state_delta)
+
+    st.write("States Migration")
+    
+    if selected_yr > 2000:
+        df_gt_50000 = df_population_diff[df_population_diff.population_diff > 50000]
+        df_lt_50000 = df_population_diff[df_population_diff.population_diff < -50000]
+        states_migration_gt = round(len(df_gt_50000) / df_population_diff.states.nunique() * 100)
+        states_migration_lt = round(len(df_lt_50000) / df_population_diff.states.nunique() * 100)
+        dount_chart_gt = make_donut(states_migration_gt, "Inbound Migration", "green")
+        dount_chart_lt = make_donut(states_migration_lt, "Outbound Migration", "red")
+    else:
+        states_migration_gt = 0
+        states_migration_lt = 0
+        dount_chart_gt = make_donut(states_migration_gt, "Inbound Migration", "green")
+        dount_chart_lt = make_donut(states_migration_lt, "Outbound Migration", "red")
+    
+    migration_col = st.columns((0.2, 1, 0.2))
+    with migration_col[1]:
+        st.write("Inbound")
+        st.altair_chart(dount_chart_gt)
+        st.write("Outbound")
+        st.altair_chart(dount_chart_lt)
