@@ -18,7 +18,7 @@ st.divider()
 
 st.header("interactive bar chart")
 selected_year = st.selectbox(
-    "Select a year.", list(population_data.year.unique())[::-1]
+    "Select a year.", population_data.year.unique()[::-1]  # no need to convert to list
 )
 if selected_year:
     population_selected_year = population_data[population_data.year == selected_year]
@@ -28,7 +28,7 @@ st.divider()
 
 st.header("line chart")
 line_chart_data = population_data.copy()
-line_chart_data["year"] = line_chart_data["year"].astype(str)  # to format 2,019 to 2019
+line_chart_data["year"] = line_chart_data["year"].astype(str)  # format 2,019 to 2019
 c = (
     alt.Chart(line_chart_data)
     .mark_line()
@@ -40,10 +40,8 @@ st.divider()
 st.header("interactive line chart")
 states = st.multiselect("Pick states", population_data.states.unique(), "California")
 date_range = st.slider("Pick date", 2010, 2019, (2010, 2019))
-print("-" * 50, states)
 if states:
     chart_data = population_data[population_data["states"].isin(states)]
-    print("-" * 50, chart_data)
     chart_data = chart_data[chart_data["year"].between(date_range[0], date_range[1])]
     chart_data["year"] = chart_data["year"].astype(str)
     c = (
