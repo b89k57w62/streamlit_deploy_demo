@@ -2,7 +2,7 @@ import streamlit as st
 import pymysql
 
 pymysql.install_as_MySQLdb()
-
+st.set_page_config(layout="wide")
 if "role" not in st.session_state:
     st.session_state.role = None
 
