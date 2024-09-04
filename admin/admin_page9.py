@@ -24,7 +24,7 @@ def fixed_img(img):
     fixed_img = remove(read_img)
     col2.write("Fixed Image :wrench:")
     col2.image(fixed_img)
-    st.download_button("Download image", convert_img(fixed_img), "download_img.png")
+    st.sidebar.download_button("Download image", convert_img(fixed_img), "download_img.png")
 
 
 col1, col2 = st.columns(2)
