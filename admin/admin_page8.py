@@ -11,7 +11,7 @@ with st.sidebar:
     selected_yr = st.selectbox("Select a year", yr_list)
     df_selected_yr = df[df.year == selected_yr]
     df_selected_yr_sorted = df_selected_yr.sort_values(by="population", ascending=False)
-    color_theme_list = ["blues", "cividis", "greens"] 
+    color_theme_list = ["blues", "cividis", "greens"]
     selected_color_theme = st.selectbox("Select a color theme", color_theme_list)
 
 
