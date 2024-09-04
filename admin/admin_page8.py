@@ -13,7 +13,6 @@ with st.sidebar:
     df_selected_yr_sorted = df_selected_yr.sort_values(by="population", ascending=False)
     color_theme_list = ["blues", "cividis", "greens"]
     selected_color_theme = st.selectbox("Select a color theme", color_theme_list)
-    # print("-"*50, df_selected_yr)
 
 def make_heatmap(df, y, x, color, color_theme):
     heatmap = (
