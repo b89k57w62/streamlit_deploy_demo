@@ -11,8 +11,9 @@ with st.sidebar:
     selected_yr = st.selectbox("Select a year", yr_list)
     df_selected_yr = df[df.year == selected_yr]
     df_selected_yr_sorted = df_selected_yr.sort_values(by="population", ascending=False)
-    color_theme_list = ["blues", "cividis", "greens"]
+    color_theme_list = ["blues", "cividis", "greens"] 
     selected_color_theme = st.selectbox("Select a color theme", color_theme_list)
+
 
 def make_heatmap(df, y, x, color, color_theme):
     heatmap = (
@@ -55,7 +56,7 @@ def make_choropleth(df, id, col, color_theme):
         range_color=(0, max(df_selected_yr.population)),
         scope="usa",
         labels={"population": "Population"},
-        template='plotly_dark',
+        template="plotly_dark",
     )
     # unnecessary to update layout, because hardcode
     return choropleth
@@ -68,15 +69,15 @@ def make_donut(response, text, color):
         chart_color = ["#E74C3C", "#781F16"]
 
     source = pd.DataFrame({"Topic": ["", text], "% value": [100 - response, response]})
-    source_bg = pd.DataFrame({"Topic": ["", text], "% value": [100, 0]})
     plot = (
         alt.Chart(source)
         .mark_arc(innerRadius=45, outerRadius=25)
         .encode(
             theta="% value",
             color=alt.Color(
-                "Topic", scale=alt.Scale(domain=[text, ""], range=chart_color),
-                legend=None
+                "Topic",
+                scale=alt.Scale(domain=[text, ""], range=chart_color),
+                legend=None,
             ),
         )
         .properties(width=130, height=130)
@@ -89,18 +90,7 @@ def make_donut(response, text, color):
         fontWeight=700,
         fontStyle="italic",
     ).encode(text=alt.value(f"{response} %"))
-    plot_bg = (
-        alt.Chart(source_bg)
-        .mark_arc(innerRadius=45, outerRadius=20)
-        .encode(
-            theta="% value",
-            color=alt.Color(
-                "Topic", scale=alt.Scale(domain=[text, ""], range=chart_color)
-            ),
-        )
-        .properties(width=130, height=130)
-    )
-    return plot_bg + plot + plot_text
+    return plot + plot_text
 
 
 def calculate_population_diff(df, yr):
@@ -176,23 +166,30 @@ with col[0]:
 
 with col[1]:
     st.markdown("### Total Population")
-    choropleth = make_choropleth(df_selected_yr, "states_code", "population", selected_color_theme)
+    choropleth = make_choropleth(
+        df_selected_yr, "states_code", "population", selected_color_theme
+    )
     st.plotly_chart(choropleth, use_container_width=True)
-    heatmap = make_heatmap(df_selected_yr, "year", "states", "population", selected_color_theme)
+    heatmap = make_heatmap(
+        df_selected_yr, "year", "states", "population", selected_color_theme
+    )
     st.altair_chart(heatmap, use_container_width=True)
 
 with col[2]:
     st.markdown("### Top States")
-    st.dataframe(df_selected_yr_sorted, column_order=["states", "population"], hide_index=True, column_config={
-        "states": st.column_config.TextColumn(
-            "States"
-        ),
-        "population": st.column_config.ProgressColumn(
-            "Population",
-            format="%d",
-            min_value=0,
-            max_value=max(df_selected_yr_sorted.population)
-        )
-    })
+    st.dataframe(
+        df_selected_yr_sorted,
+        column_order=["states", "population"],
+        hide_index=True,
+        column_config={
+            "states": st.column_config.TextColumn("States"),
+            "population": st.column_config.ProgressColumn(
+                "Population",
+                format="%d",
+                min_value=0,
+                max_value=max(df_selected_yr_sorted.population),
+            ),
+        },
+    )
     with st.expander("About"):
         st.write("Dashboard Demo.")
