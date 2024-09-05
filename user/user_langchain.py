@@ -5,8 +5,8 @@ openai_api_key = st.secrets["OPENAI_API_KEY"]
 
 
 def gen_response(input_text):
-    moddel = ChatOpenAI(temperature=0.7, api_key=openai_api_key)
-    st.info(moddel.invoke(input_text))
+    model = ChatOpenAI(temperature=0.7, api_key=openai_api_key)
+    st.info(model.invoke(input_text))
 
 
 with st.form("my_form"):
