@@ -1,12 +1,9 @@
 import streamlit as st
-import time
-import random
 from openai import OpenAI
 
 st.title("Chatbot-Demo")
 
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
-# print("-"*50, st.secrets)
 
 role = st.session_state.role
 
@@ -28,7 +25,7 @@ if prompt := st.chat_input("Say something."):
                 {"role": message["role"], "content": message["content"]}
                 for message in st.session_state.messages
             ],
-            stream=True,
+            stream=True, # will return generator
         )
         response = st.write_stream(stream)
     st.session_state.messages.append({"role": "assistant", "content": response})
