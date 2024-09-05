@@ -93,7 +93,7 @@ gb.configure_column(
     flex=1,
 )
 gb.configure_column(
-    field="Embarked", header_name="Port of Embarkation", flex=1, tooltipField="Embarked"
+    field="Embarked", header_name="Port of Embarkation", flex=1,
 )
 
 
