@@ -5,7 +5,7 @@ from st_aggrid import AgGrid, GridOptionsBuilder
 
 @st.cache_data
 def load_data():
-    data = pd.read_csv("data/train.csv")
+    data = pd.read_csv("data/train.csv") # Titanic Dataset
     return data
 
 
