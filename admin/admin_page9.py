@@ -20,11 +20,15 @@ def convert_img(img):
 def fixed_img(img):
     col1.write("original img :camera:")
     col1.image(img)
-    read_img = Image.open(img) # pillow obj
-    fixed_img = remove(read_img) # remove func allowed data type with bytes, pillow, numpy
+    read_img = Image.open(img)  # pillow obj
+    fixed_img = remove(
+        read_img
+    )  # remove func allowed data type with bytes, pillow, numpy
     col2.write("Fixed Image :wrench:")
     col2.image(fixed_img)
-    st.sidebar.download_button("Download image", convert_img(fixed_img), "download_img.png")
+    st.sidebar.download_button(
+        "Download image", convert_img(fixed_img), "download_img.png"
+    )
 
 
 col1, col2 = st.columns(2)

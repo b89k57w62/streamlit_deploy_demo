@@ -63,6 +63,10 @@ admin_page8 = st.Page(
 admin_page9 = st.Page(
     "admin/admin_page9.py", title="Build an image background remover in Streamlit"
 )
+admin_page10 = st.Page(
+    "admin/admin_page10.py",
+    title="Building a PivotTable report with Streamlit and AG Grid",
+)
 account_pages = [logout_page, settings]
 user_pages = [user_index, user_updte, user_chatbot, user_langchain]
 admin_pages = [
@@ -75,6 +79,7 @@ admin_pages = [
     admin_page7,
     admin_page8,
     admin_page9,
+    admin_page10,
 ]
 
 
