@@ -67,6 +67,10 @@ admin_page10 = st.Page(
     "admin/admin_page10.py",
     title="Building a PivotTable report with Streamlit and AG Grid",
 )
+admin_page11 = st.Page(
+    "admin/admin_page11.py",
+    title="Create a search engine with Streamlit and Google Sheets",
+)
 account_pages = [logout_page, settings]
 user_pages = [user_index, user_updte, user_chatbot, user_langchain]
 admin_pages = [
@@ -80,6 +84,7 @@ admin_pages = [
     admin_page8,
     admin_page9,
     admin_page10,
+    admin_page11,
 ]
 
 

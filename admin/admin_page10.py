@@ -5,7 +5,7 @@ from st_aggrid import AgGrid, GridOptionsBuilder
 
 @st.cache_data
 def load_data():
-    data = pd.read_csv("data/train.csv") # Titanic Dataset
+    data = pd.read_csv("data/train.csv")  # Titanic Dataset
     return data
 
 
@@ -93,7 +93,9 @@ gb.configure_column(
     flex=1,
 )
 gb.configure_column(
-    field="Embarked", header_name="Port of Embarkation", flex=1,
+    field="Embarked",
+    header_name="Port of Embarkation",
+    flex=1,
 )
 
 
