@@ -1,5 +1,4 @@
 import streamlit as st
-import streamlit_authenticator as stauth
 import pymysql
 
 pymysql.install_as_MySQLdb()
@@ -27,7 +26,12 @@ def back():
 
 back_page = st.Page(back, title="Back", icon=":material/logout:")
 settings = st.Page("settings.py", title="Settings", icon=":material/settings:")
-user_login = st.Page("user/user_login.py", title="User Login", icon="🅰️", default=(st.session_state.role == "User"))
+user_login = st.Page(
+    "user/user_login.py",
+    title="User Login",
+    icon="🅰️",
+    default=(st.session_state.role == "User"),
+)
 user_index = st.Page(
     "user/user_index.py",
     title="User Index",
