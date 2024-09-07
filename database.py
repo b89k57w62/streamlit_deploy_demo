@@ -3,11 +3,10 @@ import streamlit_authenticator as stauth
 import os
 from dotenv import load_dotenv
 from sqlalchemy import create_engine, text
-from streamlit_authenticator.controllers import AuthenticationController
 
 load_dotenv()
 db = os.getenv("DATABASE_URL")
-engine = create_engine(db)
+
 
 
 class CustomAuthenticator(stauth.Authenticate):  # views
