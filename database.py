@@ -4,7 +4,6 @@ import os
 from dotenv import load_dotenv
 from sqlalchemy import create_engine, text
 from streamlit_authenticator.controllers import AuthenticationController
-from typing import Optional, List, Callable
 
 load_dotenv()
 db = os.getenv("DATABASE_URL")
