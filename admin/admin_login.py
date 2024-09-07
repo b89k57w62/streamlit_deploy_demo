@@ -1,6 +1,6 @@
 import streamlit as st
 import os
-from database import CustomAuthenticator, CustomAuthenticationController
+from database import CustomAuthenticator
 from dotenv import load_dotenv
 from sqlalchemy import create_engine, text
 
