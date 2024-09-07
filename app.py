@@ -49,6 +49,11 @@ admin_login = st.Page(
     icon="🅱️",
     default=(st.session_state.role == "Admin"),
 )
+admin_register = st.Page(
+    "admin/admin_register.py",
+    title="Admin register",
+    icon="❗️",
+)
 admin_page = st.Page(
     "admin/admin_index.py",
     title="Admin Index",
@@ -84,8 +89,22 @@ admin_page11 = st.Page(
     title="Create a search engine with Streamlit and Google Sheets",
 )
 account_pages = [back_page, settings]
-user_pages = [user_login]
-admin_pages = [admin_login]
+user_pages = [user_login, user_index, user_chatbot, user_langchain]
+admin_pages = [
+    admin_login,
+    admin_register,
+    admin_page,
+    admin_page2,
+    admin_page3,
+    admin_page4,
+    admin_page5,
+    admin_page6,
+    admin_page7,
+    admin_page8,
+    admin_page9,
+    admin_page10,
+    admin_page11,
+]
 
 
 st.title("Streamlit Demo")
