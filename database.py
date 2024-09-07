@@ -68,45 +68,16 @@ class CustomAuthenticationController(AuthenticationController):
         super().__init__(credentials, *args, **kwargs)
         self.engine = create_engine(db)
 
-    def register_user(
-        self,
-        new_name: str,
-        new_email: str,
-        new_username: str,
-        new_password: str,
-        new_password_repeat: str,
-        pre_authorization: bool,
-        domains: Optional[List[str]] = None,
-        callback: Optional[Callable] = None,
-        captcha: bool = False,
-        entered_captcha: Optional[str] = None,
-    ) -> tuple:
-        """
-        覆寫父類的 `register_user` 方法，並在註冊成功後將資料寫入資料庫。
-        """
-        # 調用父類的註冊邏輯進行註冊驗證
-        email, username, name = super().register_user(
-            new_name,
-            new_email,
-            new_username,
-            new_password,
-            new_password_repeat,
-            pre_authorization,
-            domains,
-            callback,
-            captcha,
-            entered_captcha,
-        )
+    def register_user(self, new_name: str, *args, **kwargs):
+        email, username, name = super().register_user(new_name, *args, **kwargs)
 
-        # 如果註冊成功，將使用者資料存入資料庫
         if email and username and name:
             try:
-                # 假設密碼在父類中已經進行哈希加密
                 hashed_password = self.authentication_model.credentials["usernames"][
                     username
                 ]["password"]
 
-                role = st.session_state.get("role", "User")  # 預設角色為 "User"
+                role = st.session_state.get("role", "User")
                 st.write(
                     f"Attempting to insert: username={username}, email={email}, name={name}, password={hashed_password}, role={role}"
                 )
