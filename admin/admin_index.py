@@ -50,8 +50,3 @@ add_selectbox = st.sidebar.selectbox(
     key="contacted_method",
 )
 st.sidebar.write(st.session_state.contacted_method)
-
-
-conn = st.connection("my_database")
-df = conn.query("select * from actor where actor_id = 1")
-st.dataframe(df)

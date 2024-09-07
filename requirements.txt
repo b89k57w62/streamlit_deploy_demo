@@ -5,9 +5,11 @@ altair==4.2.2
 annotated-types==0.7.0
 anyio==4.4.0
 attrs==24.2.0
+bcrypt==4.2.0
 black==24.8.0
 blinker==1.8.2
 cachetools==5.5.0
+captcha==0.6.0
 certifi==2024.7.4
 charset-normalizer==3.3.2
 click==8.1.7
@@ -15,6 +17,7 @@ coloredlogs==15.0.1
 decorator==5.1.1
 distro==1.9.0
 entrypoints==0.4
+extra-streamlit-components==0.1.71
 flatbuffers==24.3.25
 frozenlist==1.4.1
 fsspec==2024.6.1
@@ -79,6 +82,7 @@ pydantic==2.8.2
 pydantic_core==2.20.1
 pydeck==0.9.1
 Pygments==2.18.0
+PyJWT==2.9.0
 PyMatting==1.1.12
 PyMySQL==1.1.1
 python-dateutil==2.9.0.post0
@@ -102,6 +106,7 @@ SQLAlchemy==2.0.32
 st-files-connection==0.1.0
 streamlit==1.38.0
 streamlit-aggrid==1.0.5
+streamlit-authenticator==0.3.3
 sympy==1.13.2
 tenacity==8.5.0
 tifffile==2024.8.30
