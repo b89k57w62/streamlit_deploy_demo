@@ -1,7 +1,6 @@
 import streamlit as st
-import pymysql
 
-pymysql.install_as_MySQLdb()
+
 st.set_page_config(layout="wide")
 
 
