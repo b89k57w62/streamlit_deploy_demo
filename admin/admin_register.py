@@ -27,7 +27,7 @@ new_user = authenticator_register.register_user(
 )
 
 hashed_password = stauth.Hasher(["Qweasd1234@"]).generate()[0]
-if new_user:
+if new_user and all(new_user):
     column_names = ["email", "username", "name"]
     user_data = dict(zip(column_names, new_user))
 
@@ -58,5 +58,4 @@ if new_user:
                 },
             )
             st.success("done")
-else:
-    st.error("fail")
+
