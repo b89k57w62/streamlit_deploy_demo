@@ -7,8 +7,7 @@ row1 = st.columns(3)
 row2 = st.columns(3)
 
 grid = [col.container(height=200) for col in row1 + row2]
-safe_grid = [card.empty() for card in grid]
-
+safe_grid = [card.empty() for card in grid] #DeltaGenerator
 
 def black_cats():
     st.title("🐈‍⬛ 🐈‍⬛")
@@ -53,6 +52,6 @@ def herd_orange_cats(card_a, card_b, card_c):
 
 
 with st.sidebar:
-    herd_black_cats(grid[0].empty(), grid[2].empty(), grid[4].empty())
-    herd_orange_cats(grid[1].empty(), grid[3].empty(), grid[5].empty())
+    herd_black_cats(safe_grid[0], safe_grid[2], safe_grid[4])
+    herd_orange_cats(safe_grid[1], safe_grid[3], safe_grid[5])
     st.button("Herd all the cats")

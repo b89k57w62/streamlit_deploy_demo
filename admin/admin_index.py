@@ -28,7 +28,7 @@ if st.session_state.show_data:
 
 @st.cache_data
 def test_cache(a, b):
-    time.sleep(2)
+    time.sleep(5)
     return a + b
 
 

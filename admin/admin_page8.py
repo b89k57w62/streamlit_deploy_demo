@@ -24,7 +24,6 @@ def make_heatmap(df, y, x, color, color_theme):
                 y,
                 axis=alt.Axis(
                     title="year",
-                    titleFontSize=18,
                     titlePadding=15,
                     titleFontWeight=900,
                     labelAngle=0,
@@ -33,7 +32,7 @@ def make_heatmap(df, y, x, color, color_theme):
             x=alt.X(
                 x,
                 axis=alt.Axis(
-                    title="", titleFontSize=18, titlePadding=15, titleFontWeight=900
+                    title="",
                 ),
             ),
             color=alt.Color(color, scale=alt.Scale(scheme=color_theme)),
@@ -41,7 +40,7 @@ def make_heatmap(df, y, x, color, color_theme):
             strokeWidth=alt.value(0.25),
         )
         .properties(width=900)
-        .configure_axis(labelFontSize=12, titleFontSize=12)
+        .configure_axis(labelFontSize=12, titleFontSize=18)
     )
     return heatmap
 
@@ -110,7 +109,7 @@ def calculate_population_diff(df, yr):
     ).sort_values(by="population_diff", ascending=False)
 
 
-col = st.columns((1.5, 4.5, 2), gap="medium")
+col = st.columns((2, 4.5, 2), gap="medium")
 
 with col[0]:
     st.markdown("### Gains/losses")

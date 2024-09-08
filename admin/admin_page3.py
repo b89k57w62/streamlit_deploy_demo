@@ -1,15 +1,20 @@
 import streamlit as st
 import numpy as np
 import pandas as pd
-
+import os
+from dotenv import load_dotenv
+from sqlalchemy import create_engine, text
 
 st.sidebar.write("Page 3")
-conn = st.connection("my_database")
+load_dotenv()
+db = os.getenv("DATABASE_URL")
+engine = create_engine(db)
+
 
 
 @st.cache_data
 def get_profile_dataset(number_of_items: int = 20, seed: int = 0):
-    query_set = conn.query(
+    query = text(
         f"""
             SELECT c.first_name, c.last_name, COUNT(r.rental_id) as yearly_rentals FROM customer as c
             INNER JOIN rental as r on c.customer_id = r.customer_id
@@ -18,7 +23,9 @@ def get_profile_dataset(number_of_items: int = 20, seed: int = 0):
             LIMIT {number_of_items}
         """
     )
-    df = pd.DataFrame(query_set, columns=["first_name", "last_name", "yearly_rentals"])
+    with engine.connect() as connection:
+        data_set = connection.execute(query)
+    df = pd.DataFrame(data_set, columns=["first_name", "last_name", "yearly_rentals"])
     np.random.seed(seed)
     df["daily_activity"] = [np.random.rand(25) for _ in range(len(df))]
     df["activity"] = [np.random.randint(2, 90, size=12) for _ in range(len(df))]
@@ -26,7 +33,6 @@ def get_profile_dataset(number_of_items: int = 20, seed: int = 0):
     return df
 
 
-df = get_profile_dataset()
 column_config = {
     "first_name": st.column_config.TextColumn(
         "First Name", help="The first name of the user", max_chars=100, width="medium"
@@ -44,7 +50,7 @@ column_config = {
         help="The user's activity over the last 1 year",
         width="large",
         y_min=0,
-        y_max=max(df["yearly_rentals"]),
+        y_max=89,
     ),
     "daily_activity": st.column_config.BarChartColumn(
         "Activity (daily)",
@@ -68,6 +74,7 @@ with select:
         on_select="rerun",
         selection_mode="multi-row",
     )
+    st.divider()
     st.header("Selected members")
     people = event.selection.rows
     filtered_df = df.iloc[people]

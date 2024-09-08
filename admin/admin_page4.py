@@ -2,18 +2,25 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 from datetime import date, timedelta
+import os
+from dotenv import load_dotenv
+from sqlalchemy import create_engine, text
 
+load_dotenv()
+db = os.getenv("DATABASE_URL")
 
 @st.cache_data
 def get_data():
-    conn = st.connection("my_database")
-    query_set = conn.query(
+    engine = create_engine(db)
+    query = text(
         """
             SELECT category, total_sales FROM sales_by_film_category
         """
     )
-    category = query_set["category"].tolist()
-    total_sales = query_set["total_sales"].tolist()
+    with engine.connect() as connection:
+        query_set = connection.execute(query).fetchall()
+    category = [row[0] for row in query_set]
+    total_sales = [row[1] for row in query_set]
     average_daily_sales = [round(sale / 30, 2) for sale in total_sales]
     products = dict(zip(category, average_daily_sales))
 
@@ -46,14 +53,14 @@ def show_daily_sales(data):
     with st.container(height=510):
         st.header(f"Best sellers, {selected_date:%m/%d/%y}")
         top_three = data.loc[selected_date].sort_values(ascending=False)[0:3]
-        cols = st.columns([1, 4])
+        cols = st.columns([2, 4])
         cols[0].dataframe(top_three)
         cols[1].bar_chart(top_three)
 
     with st.container(height=510):
         st.header(f"Worst sellers, {selected_date:%m/%d/%y}")
         bottom_three = data.loc[selected_date].sort_values()[0:3]
-        cols = st.columns([1, 4])
+        cols = st.columns([2, 4])
         cols[0].dataframe(bottom_three)
         cols[1].bar_chart(bottom_three)
 
@@ -67,7 +74,7 @@ def show_monthly_sales(data):
     with st.container(height=510):
         st.header(f"Daily sales for all products, {this_month:%B %Y}")
         monthly_sales = data[(data.index < next_month) & (data.index >= this_month)]
-        st.write(monthly_sales)
+        st.dataframe(monthly_sales)
     with st.container(height=510):
         st.header(f"Total sales for all products, {this_month:%B %Y}")
         st.bar_chart(monthly_sales.sum())

@@ -18,6 +18,7 @@ def convert_img(img):
 
 
 def fixed_img(img):
+    col1, col2 = st.columns(2)
     col1.write("original img :camera:")
     col1.image(img)
     read_img = Image.open(img)  # pillow obj
@@ -31,7 +32,7 @@ def fixed_img(img):
     )
 
 
-col1, col2 = st.columns(2)
+
 
 if img_upload:
     if img_upload.size > MAX_FILE_SIZE:
