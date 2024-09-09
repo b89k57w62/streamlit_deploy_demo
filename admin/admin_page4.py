@@ -33,7 +33,7 @@ def get_data():
     return data
 
 
-@st.fragment
+@st.fragment 
 def show_daily_sales(data):
     with st.container(height=100):
         selected_date = st.date_input(

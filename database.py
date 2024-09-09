@@ -9,7 +9,7 @@ db = os.getenv("DATABASE_URL")
 
 
 
-class CustomAuthenticator(stauth.Authenticate):  # views
+class CustomAuthenticator(stauth.Authenticate): 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.engine = create_engine(db)

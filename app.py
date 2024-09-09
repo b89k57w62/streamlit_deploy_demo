@@ -7,12 +7,12 @@ st.set_page_config(layout="wide")
 if "role" not in st.session_state:
     st.session_state.role = None
 
-ROLES = [None, "Admin", "User"]
+ROLES = ["Admin", "User"]
 
 
 def choose_role():
     st.header("Choose the role")
-    role = st.selectbox("Choose role", ROLES)
+    role = st.selectbox("Choose role", ROLES, index=1)
     if st.button("Submit"):
         st.session_state.role = role
         st.rerun()

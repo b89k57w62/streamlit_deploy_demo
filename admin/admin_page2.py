@@ -50,6 +50,6 @@ tooltips = (
     .add_selection(hover)
 )
 # layers are added sequentially, each subsequent layer on top of the previous one
-data_layer = lines + points + tooltips
+data_layer = points + tooltips + lines
 
 st.altair_chart(data_layer, use_container_width=True)

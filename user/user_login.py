@@ -3,7 +3,6 @@ import os
 from database import CustomAuthenticator
 from dotenv import load_dotenv
 from sqlalchemy import create_engine, text
-import streamlit_authenticator as stauth
 
 load_dotenv()
 db = os.getenv("DATABASE_URL")

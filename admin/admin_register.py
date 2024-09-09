@@ -46,7 +46,7 @@ if new_user and all(new_user):
             st.error("existing")
         else:
             insert_query = text(
-                "INSERT INTO members (username, email, password, role) VALUES (:username, :email, :password, :role)"
+                "INSERT INTO members (username, email, password, role, name) VALUES (:username, :email, :password, :role, :name)"
             )
             connection.execute(
                 insert_query,
@@ -55,6 +55,7 @@ if new_user and all(new_user):
                     "email": user_data["email"],
                     "password": user_data["password"],
                     "role": user_data["role"],
+                    "name": user_data["name"],
                 },
             )
             st.success("done")
